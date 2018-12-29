@@ -1,4 +1,4 @@
-# Python For MegaPi
+# Python For MegaPi (Python 3 conversion)
 ## How To Use
 ### Prepare for Arduino
  * Download the Arduino library for Makeblock https://github.com/Makeblock-official/Makeblock-Libraries/archive/master.zip
