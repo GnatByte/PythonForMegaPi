@@ -94,14 +94,16 @@ class MegaPi:
         th.start()
 
     def excepthook(self, exc_type, value, traceback):
-        print('Exception: ' + exc_type + ' Value: ' + value)
-        print('TraceBack: ' + traceback)
+        print('Exception: ' + str(exc_type) + ' Value: ' + str(value))
+        print('TraceBack: ' + str(traceback))
         self.close()
 
     def close(self):
         self.device.close()
 
-    def exit(self):
+    def exit(self, exit_signal, exit_frame):
+        print('Signal: ' + str(exit_signal))
+        print('Frame: ' + str(exit_frame))
         self.exiting = True
         sys.exit(0)
 
@@ -155,8 +157,11 @@ class MegaPi:
     def potentiometer_read(self, port, callback):
         self.__write_request_package(4, port, callback)
 
-    def limit_switch_read(self, port, callback):
-        self.__write_request_package(21, port, callback)
+    def limit_switch_read(self, port, slot, callback):
+        device_id = 21
+        ext_id = ((port << 4) + device_id) & 0xff
+        self.__do_callback(ext_id, callback)
+        self.__write_package(bytearray([0xff, 0x55, 0x5, ext_id, 0x1, device_id, port, slot]))
 
     def temperature_read(self, port, callback):
         self.__write_request_package(2, port, callback)
