@@ -312,16 +312,16 @@ class MegaPi:
         self.__write_package(bytearray([0xff, 0x55, 7 + len(buffer), 0, 0x2, 41, port, 2, x, 7 - y] + buffer))
 
     def shutter_on(self, port):
-        self.__write_package(bytearray([0xff, 0x55, 0x5, 0, 0x3, 20, port, 1]))
+        self.__write_package(bytearray([0xff, 0x55, 0x5, 0x0, 0x2, 20, port, 1]))
 
     def shutter_off(self, port):
-        self.__write_package(bytearray([0xff, 0x55, 0x5, 0, 0x3, 20, port, 2]))
+        self.__write_package(bytearray([0xff, 0x55, 0x5, 0x0, 0x2, 20, port, 0]))
 
     def focus_on(self, port):
-        self.__write_package(bytearray([0xff, 0x55, 0x5, 0, 0x3, 20, port, 3]))
+        self.__write_package(bytearray([0xff, 0x55, 0x5, 0x0, 0x2, 20, port, 3]))
 
     def focus_off(self, port):
-        self.__write_package(bytearray([0xff, 0x55, 0x5, 0, 0x3, 20, port, 4]))
+        self.__write_package(bytearray([0xff, 0x55, 0x5, 0x0, 0x2, 20, port, 2]))
 
     def on_parse(self, byte):
         value = 0
